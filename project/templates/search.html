@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/search.css?anything=stopcach18" />
+  <link rel="stylesheet" href="../static/css/jquery-ui.css" />
+  <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> -->
+  <script src="../static/js/jquery-1.11.1.min.js"></script>
+  <script src="../static/js/jquery-ui.min.js"></script>
+  <script src="../static/js/jquery.select-to-autocomplete.js"></script>
+  <script>
+    (function ($) {
+      $(function () {
+        $('select').selectToAutocomplete();
+        // $('form').submit(function () {
+        //   alert($(this).serialize());
+        //   return false;
+        // });
+      });
+    })(jQuery);
+  </script>
+  <title>Search</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-nav">
+      <a href="/profile" onclick="loading();">
+        <h5>Home</h5>
+      </a>
+      <a href="/sign-out"><button class="btn btn-secondary" type="submit">Sign Out </button></a>
+    </div>
+  </nav>
+  <div class="container_search">
+    <h5 id="loading-message">Loading profile...</h5>
+    <img id="loading" class="col-sm-3 col-sm-offset-4" src="{{ url_for('static',
+        filename='spinner.gif') }}">
+    <div class="card" id="header-card">
+      <h5 class="welcome">We need to know a little more about your literary taste. Please rate some books!</strong></h5>
+      {% if message %}
+      <p class="message">{{ message | safe }}</p>
+      {% endif %}
+      <small>If possible, please rate <strong>at least 10 books</strong>. This way, we can create
+        some useful book recommendations for you. The more books you rate,
+        the better the recommendations will be!
+      </small>
+    </div>
+    <div class="card" id="search-card">
+      <small>To rate some books, search for the book title below:</small>
+      <form class="search_form" action="{{ url_for('main.search') }}" method="post">
+        <div class="form-group">
+          <label class="title_label" for="title">Book title:</label>
+          <input autocomplete="on" autofocus class="form-control" placeholder="Enter the title of the book" id="title"
+            name="title" type="text" required />
+        </div>
+        <div class="form-group">
+          <label class="genre_label" for="genre">Book genre (optional):</label>
+          <!-- <input autocomplete="on" class="form-control" placeholder="Enter the genre of the book" id="genre" name="genre"
+                            type="text"/> -->
+          <select name="genre" id="country-selector" autofocus="autofocus" autocorrect="off" autocomplete="off">
+            <option value="" selected="selected">Select Country</option>
+            <option value="1">Action</option>
+            <option value="2">
+              Adventure</option>
+            <option value="3">Cars</option>
+            <option value="4">Comedy</option>
+            <option value="5">Dementia
+            </option>
+            <option value="6">Demons</option>
+            <option value="8">Drama</option>
+            <option value="9">Ecchi</option>
+            <option value="10">Fantasy</option>
+            <option value="11">Game</option>
+            <option value="35">Harem</option>
+            <option value="12">Hentai</option>
+            <option value="13">Historical</option>
+            <option value="14">Horror</option>
+            <option value="43">Josei</option>
+            <option value="15">Kids</option>
+            <option value="16">Magic</option>
+            <option value="17">Marital Arts</option>
+            <option value="18">Mecha</option>
+            <option value="38">Military</option>
+            <option value="19">Music</option>
+            <option value="7">Mystery</option>
+            <option value="20">Parody</option>
+            <option value="40">Psychological</option>
+            <option value="22">Romance</option>
+            <option value="21">Samurai</option>
+            <option value="23">School</option>
+            <option value="24">Sci-Fi</option>
+            <option value="42">Seinen</option>
+            <option value="25">Shoujo</option>
+            <option value="26">Shoujo Ai</option>
+            <option value="27">Shounen</option>
+            <option value="28">Shounen Ai</option>
+            <option value="36">Slice of Life</option>
+            <option value="29">Space</option>
+            <option value="30">Sports</option>
+            <option value="31">Super Power</option>
+            <option value="37">Supernatural</option>
+            <option value="41">Thriller</option>
+            <option value="32">Vampire</option>
+            <option value="33">Yaoi</option>
+            <option value="34">Yuri</option>
+          </select>
+        </div>
+        <button class="btn btn-sm btn-info" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script>
+    $("#loading").hide();
+    $("#loading-message").hide();
+
+    function loading() {
+      $("#loading").show();
+      $("#loading-message").show();
+      $("#header-card").hide();
+      $("#search-card").hide();
+    }
+  </script>
+  <script>
+    let dropdown = $('#locality-dropdown');
+
+    dropdown.empty();
+
+    dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
+    dropdown.prop('selectedIndex', 0);
+
+    const url = 'https://www.pic.ucla.edu/~coolguy5530/genres.json';
+
+    // Populate dropdown with list of provinces
+    $.getJSON(url, function (data) {
+      $.each(data, function (key, entry) {
+        dropdown.append($('<option></option>').attr('value', entry.abbreviation).text(entry.name));
+      })
+    });
+  </script>
+</body>
+
+</html>
